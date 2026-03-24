@@ -34,10 +34,33 @@ router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
 
   try {
+    // Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ 
+        msg: 'Name, email, and password are required',
+        missing: {
+          name: !name,
+          email: !email,
+          password: !password
+        }
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ msg: 'Invalid email format' });
+    }
+
+    // Validate password length
+    if (password.length < 6) {
+      return res.status(400).json({ msg: 'Password must be at least 6 characters' });
+    }
+
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ msg: 'User already exists' });
+      return res.status(400).json({ msg: 'User already exists with this email' });
     }
 
     // Hash the password
@@ -68,7 +91,7 @@ router.post('/signup', async (req, res) => {
     });
   } catch (err) {
     console.error('Signup error:', err);
-    res.status(500).json({ msg: 'Server error' });
+    res.status(500).json({ msg: 'Server error', error: err.message });
   }
 });
 

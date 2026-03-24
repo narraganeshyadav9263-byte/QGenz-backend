@@ -105,6 +105,10 @@ const feedbackRoutes = require('./routes/feedback');
 app.use('/api/auth', authRouter);
 app.use('/api/auth', protectedRoutes);
 app.use('/api/auth', googleAuthRoutes);
+// Alternative mounting for backward compatibility
+app.use('/auth', authRouter);
+app.use('/auth', protectedRoutes);
+app.use('/auth', googleAuthRoutes);
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/support', supportRoutes);
 app.use('/api/feedback', feedbackRoutes);

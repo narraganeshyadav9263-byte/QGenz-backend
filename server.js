@@ -26,7 +26,9 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:3000',
   'http://127.0.0.1:5173',
- 
+  'https://qgenz-backend.onrender.com',
+  'https://q-genz-frontend.vercel.app',
+  'https://q-genz-frontend-1vv0npwco-narraganeshyadav9263-bytes-projects.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
 
@@ -50,6 +52,9 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// ensure preflight support for all routes
+app.options('*', cors());
 
 // Parse incoming JSON
 app.use(express.json());

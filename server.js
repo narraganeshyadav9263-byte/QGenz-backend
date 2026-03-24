@@ -28,6 +28,7 @@ const allowedOrigins = [
   'http://127.0.0.1:5173',
   'https://qgenz-backend.onrender.com',
   'https://q-genz-frontend.vercel.app',
+  'https://qgenz-ai.onrender.com',
   'https://q-genz-frontend-1vv0npwco-narraganeshyadav9263-bytes-projects.vercel.app',
   process.env.FRONTEND_URL
 ].filter(Boolean);
